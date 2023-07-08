@@ -3,10 +3,10 @@ import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 import catlover from './images/cat-lover.png';
 import Form from './components/Form/Form';
 import Posts from './components/Posts/Posts';
-import useStyles from './styles';
+import appStyles from './styles';
 
 const App = () => {
-    const classes = useStyles()
+    const classes = appStyles()
     return (
         <Container maxidth="lg">
             <AppBar className={classes.appBar} position="static" color="inherit">
