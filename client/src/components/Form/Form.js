@@ -16,7 +16,7 @@ const Form = ({currentId, setCurrentId}) => {
         }
     }, [post]);
 
-    const classes = formStyles()
+    const classes = formStyles();
 
     const handleSubmit = (e) => {
         e.preventDefault();
