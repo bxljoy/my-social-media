@@ -12,14 +12,6 @@ const Post = ({ post, setCurrentId }) => {
     const classes = postStyles();
     const dispatch = useDispatch();
 
-    function deleteOnePost() {
-        dispatch(deletePost(post._id));
-    }
-
-    function likeOnePost() {
-        dispatch(likePost(post._id));
-    }
-
     return (
         <Card className={classes.card}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title}/> 
@@ -43,12 +35,12 @@ const Post = ({ post, setCurrentId }) => {
                 <Typography variant="h5" gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" onClick={likeOnePost}>
+                <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}>
                     <ThumbUpAltIcon fontSize="small"/>
                     Like
                     {post.likeCount}
                 </Button>
-                <Button size="small" color="primary" onClick={deleteOnePost}>
+                <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id))}>
                     <DeleteIcon fontSize="small"/>
                     Delete
                 </Button>
