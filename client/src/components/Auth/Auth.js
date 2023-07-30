@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Avatar, Grid, Paper, Button, Typography, Container } from '@material-ui/core';
-import { GoogleLogin } from 'react-google-login';
-import LockOutLinedIcon from '@material-ui/icons/LockOutlined';
-import useStyles from './styles';
+import { Avatar, Grid, Paper, Button, Typography, Container } from '@mui/material';
+import { GoogleLogin } from '@react-oauth/google';
+import LockOutLinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './Input'; 
 import MyIcon from './MyIcon';
+import Box from '@mui/material/Box';
 
 
 const Auth = () => {
-    const classes = useStyles();
     const [isSignup, setIsSignup] = useState(false);
 
     const [showPassword, setShowPassword] = useState(false);
@@ -39,13 +38,34 @@ const Auth = () => {
 
     return (
         <Container component="main" maxWidth="xs">
-            <Paper className={classes.paper} elevation={3}>
-                <Avatar className={classes.avatar}>
+            <Paper 
+                sx={{
+                    marginTop: (theme) => theme.spacing(8),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: (theme) => theme.spacing(2),
+                }}
+                elevation={3}
+            >
+                <Avatar 
+                    sx={{
+                        margin: (theme) => theme.spacing(1),
+                        backgroundColor: (theme) => theme.palette.secondary.main,
+                    }}
+                >
                     <LockOutLinedIcon />
                 </Avatar>
                 <Typography variant='h5'>{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
-                <form className={classes.form} onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
+                <Box 
+                    component="form" 
+                    sx={{
+                        width: '100%', // Fix IE 11 issue.
+                        marginTop: (theme) => theme.spacing(3),
+                    }}
+                    onSubmit={handleSubmit}>
+                    <Grid container spacing={2}
+                >
                         {
                             isSignup && (
                                 <>
@@ -58,14 +78,24 @@ const Auth = () => {
                         <Input name='password' label='Password' handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                         { isSignup && <Input name='confirmPassword' label='Repeat Password' handleChange={handleChange} type='password' /> }
                     </Grid>
-                    <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+                    <Button 
+                        type='submit' 
+                        fullWidth 
+                        variant='contained' 
+                        color='primary' 
+                        sx={{
+                            margin: (theme) => theme.spacing(3, 0, 2),
+                        }}
+                    >
                         {isSignup ? 'Sign Up' : 'Sign In'}
                     </Button>
                     <GoogleLogin 
                         clientId='123276089249-3m11ggv0autcvreun3pgqh395ajkrgfk.apps.googleusercontent.com'
                         render= {(renderProps) => (
                             <Button 
-                            className={classes.googleButton} 
+                            sx={{
+                                marginBottom: (theme) => theme.spacing(2),
+                            }}
                             color='primary' 
                             fullWidth 
                             onClick={renderProps.onClick} 
@@ -87,18 +117,10 @@ const Auth = () => {
                             </Button>
                         </Grid>
                     </Grid>
-                </form>
+                </Box>
             </Paper>
         </Container>
     )
 }
 
 export default Auth;
-
-// {
-//     "error": "idpiframe_initialization_failed",
-//     "details": "You have created a new client application 
-//      that uses libraries for user authentication or authorization 
-//      that are deprecated. New clients must use the new libraries instead. 
-//      See the [Migration Guide](https://developers.google.com/identity/gsi/web/guides/gis-migration) for more information."
-// }

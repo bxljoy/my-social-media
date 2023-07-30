@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Typography, Paper } from "@material-ui/core";
+import { TextField, Button, Typography, Paper } from "@mui/material";
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from "react-redux";
-import formStyles from './styles';
 import { createPost, updatePost } from "../../actions/posts";
+import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const Form = ({currentId, setCurrentId}) => {
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
@@ -15,8 +17,6 @@ const Form = ({currentId, setCurrentId}) => {
             setPostData(post);
         }
     }, [post]);
-
-    const classes = formStyles();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,19 +35,55 @@ const Form = ({currentId, setCurrentId}) => {
     }
 
     return (
-        <Paper className={ classes.paper }>
-            <form autoComplete="off" noValidate className={ `${classes.root} ${classes.form}` } onSubmit={handleSubmit} >
+        <Paper 
+            sx={{
+                padding: (theme) => theme.spacing(2),
+            }}
+        >
+            <Box 
+                component="form" 
+                autoComplete="off" 
+                noValidate 
+                sx={{
+                    '& .MuiTextField-root': {
+                        margin: (theme) => theme.spacing(1),
+                    },
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                }}
+                onSubmit={handleSubmit} 
+            >
                 <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a Moment</Typography>
-                <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })}/>
-                <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })}/>
+                <TextField 
+                    name="creator" 
+                    variant="outlined" 
+                    label="Creator" 
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <AccountCircle />
+                            </InputAdornment>
+                        ),
+                    }}
+                    required 
+                    fullWidth 
+                    value={postData.creator} 
+                    onChange={(e) => setPostData({ ...postData, creator: e.target.value })}/>
+                <TextField name="title" variant="outlined" label="Title" required fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })}/>
                 <TextField name="message" variant="outlined" label="Message" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })}/>
-                <TextField name="tags" variant="outlined" label="Tags" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}/>
-                 <div className={ classes.fileInput }>
+                <TextField name="tags" variant="outlined" label="Tags" helperText="e.g.: tag1,tag2,tag3" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}/>
+                <Box 
+                    sx={{
+                        width: '97%',
+                        margin: '10px 0',
+                    }}
+                >
                     <FileBase type="file" multiple={ false } onDone = { ({ base64 }) => setPostData( { ...postData, selectedFile: base64 } ) }/>   
-                 </div>
-                 <Button className={ classes.buttonSubmit } variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
-            </form>
+                </Box>
+                <Button sx={{marginBottom: 5, marginTop: 5}} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+                <Button variant="contained" color="secondary" size="large" onClick={clear} fullWidth>Clear</Button>
+            </Box>
         </Paper>
     );
 }
