@@ -90,7 +90,6 @@ const Auth = () => {
                         {isSignup ? 'Sign Up' : 'Sign In'}
                     </Button>
                     <GoogleLogin 
-                        clientId='123276089249-3m11ggv0autcvreun3pgqh395ajkrgfk.apps.googleusercontent.com'
                         render= {(renderProps) => (
                             <Button 
                             sx={{
@@ -110,6 +109,7 @@ const Auth = () => {
                         onFailure={googleFailure}
                         cookiePolicy='single_host_origin'
                     />
+                    {/* <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} /> */}
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
                             <Button onClick={switchMode}>
