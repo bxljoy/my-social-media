@@ -14,6 +14,7 @@ const Input = ({ name, handleChange, label, half, autoFocus, type, handleShowPas
             fullWidth
             label={label}
             autoFocus={autoFocus}
+            autoComplete='current-password'
             type={type}
             InputProps={ name === 'password' ? {
                 endAdornment: (
