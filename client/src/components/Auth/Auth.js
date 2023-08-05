@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar, Grid, Paper, Button, Typography, Container } from '@mui/material';
-import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
+// import { GoogleLogin } from '@react-oauth/google';
 import LockOutLinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './Input'; 
 import MyIcon from './MyIcon';
@@ -35,6 +36,11 @@ const Auth = () => {
         console.log(error); 
         console.log('Google Sign In was unsuccessful. Try Again Later');
     };
+
+    const login = useGoogleLogin({
+        onSuccess: googleSuccess,
+        onError: googleFailure
+    });
 
     return (
         <Container component="main" maxWidth="xs">
@@ -89,27 +95,19 @@ const Auth = () => {
                     >
                         {isSignup ? 'Sign Up' : 'Sign In'}
                     </Button>
-                    {/* <GoogleLogin 
-                        render= {(renderProps) => (
-                            <Button 
-                            sx={{
-                                marginBottom: (theme) => theme.spacing(2),
-                            }}
-                            color='primary' 
-                            fullWidth 
-                            onClick={renderProps.onClick} 
-                            disabled={renderProps.disabled} 
-                            startIcon={<MyIcon />} 
-                            variant='contained'
-                            >
-                                Google Sign In
-                            </Button>
-                        )}
-                        onSuccess={googleSuccess}
-                        onFailure={googleFailure}
-                        cookiePolicy='single_host_origin'
-                    /> */}
-                    <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
+                    <Button 
+                        sx={{
+                            marginBottom: (theme) => theme.spacing(2),
+                        }}
+                        color='primary' 
+                        fullWidth 
+                        onClick={login} 
+                        startIcon={<MyIcon />} 
+                        variant='contained'
+                    >
+                        Sign in with Google 🚀{' '}
+                    </Button>
+                    {/* <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} /> */}
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
                             <Button onClick={switchMode}>
