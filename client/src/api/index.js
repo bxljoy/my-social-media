@@ -7,3 +7,7 @@ export const createPost = (newPost) => axios.post(url, newPost);
 export const updatePost = (updatedPost, id) => axios.patch(`${url}/${id}`, updatedPost);
 export const deletePost = (id) => axios.delete(`${url}/${id}`);
 export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
+
+const urlAuth = 'http://localhost:4000/auth';
+
+export const verifyJwtToken = (jwtToken) => axios.post(urlAuth, jwtToken);

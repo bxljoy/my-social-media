@@ -1,13 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import Box from '@mui/material/Box';
 import { deepPurple } from '@mui/material/colors';
 import catlover from '../../images/cat-lover.png';
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
 
-    const user = null;
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        // const token = user?.token;
+        
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location]);
+
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/');
+        // setUser(null);
+    }
 
     return (
         <AppBar 
@@ -72,9 +88,9 @@ const Navbar = () => {
                                 backgroundColor: deepPurple[500],
                             }}
                             alt={user.result.name} 
-                            src={user.result.imageUrl} 
+                            src={user.result.picture} 
                         >
-                            {user.result.name.CharAt(0)}
+                            {user.result.name}
                         </Avatar>
                         <Typography 
                             sx={{
@@ -85,7 +101,7 @@ const Navbar = () => {
                         >
                             {user.result.name}
                         </Typography>
-                        <Button variant="contained" color="secondary">Logout</Button>
+                        <Button variant="contained" color="secondary" onClick={logout}>Logout</Button>
                     </Box>
                 ) : (
                     <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>

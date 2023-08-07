@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Avatar, Grid, Paper, Button, Typography, Container } from '@mui/material';
 import { useGoogleLogin } from '@react-oauth/google';
-// import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import LockOutLinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './Input'; 
 import MyIcon from './MyIcon';
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import * as api from '../../api';
 
 
 const Auth = () => {
@@ -14,6 +17,10 @@ const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const handleSubmit = () => {
 
@@ -29,7 +36,16 @@ const Auth = () => {
     };
 
     const googleSuccess = async (res) => {
-        console.log(res);
+        try {
+            const { data: result } = await api.verifyJwtToken(res);
+            console.log(result);
+            const token = res.credential;
+            // console.log(token);
+            dispatch({type: 'AUTH', data: { result, token }});
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const googleFailure = (error) => {
@@ -107,7 +123,7 @@ const Auth = () => {
                     >
                         Sign in with Google 🚀{' '}
                     </Button>
-                    {/* <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} /> */}
+                    <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} size='large' />
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
                             <Button onClick={switchMode}>
