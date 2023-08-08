@@ -123,7 +123,7 @@ const Auth = () => {
                     >
                         Sign in with Google 🚀{' '}
                     </Button>
-                    <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} size='large' />
+                    <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} size='large' auto_select useOneTap />
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
                             <Button onClick={switchMode}>
