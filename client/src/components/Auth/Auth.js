@@ -36,6 +36,7 @@ const Auth = () => {
     };
 
     const googleSuccess = async (res) => {
+        console.log(res);
         try {
             const { data: result } = await api.verifyJwtToken(res);
             console.log(result);
