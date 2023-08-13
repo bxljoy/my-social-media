@@ -41,7 +41,7 @@ const Auth = () => {
             const { data: result } = await api.verifyJwtToken(res);
             console.log(result);
             const token = res.credential;
-            // console.log(token);
+            console.log(`token: ${token}`);
             dispatch({type: 'AUTH', data: { result, token }});
             navigate('/');
         } catch (error) {
