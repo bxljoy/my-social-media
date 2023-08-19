@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import postRoutes from './routes/posts.js';
 import googleAuthRoutes from './routes/googleAuth.js';
+import userRoutes from './routes/user.js';
 import 'dotenv/config';
 
 
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 app.use('/auth', googleAuthRoutes);
+app.use('/user', userRoutes);
 
 const url1 = "mongodb+srv://";
 const url2 = "@cluster0.djq235y.mongodb.net/";
