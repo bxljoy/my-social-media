@@ -43,7 +43,7 @@ export const getTokens = async (req, res) => {
 export const getUserInfo = async (req, res) => {
     try {
         const { tokens } = await oAuth2Client.getToken(req.body.code); // exchange code for tokens
-        console.log(tokens);
+        // console.log(tokens);
         const payload = await verify(tokens.id_token);
         payload['id_token'] = tokens.id_token;
         console.log(payload);
