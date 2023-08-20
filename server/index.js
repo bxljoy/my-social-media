@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import postRoutes from './routes/posts.js';
 import googleAuthRoutes from './routes/googleAuth.js';
-import userRoutes from './routes/user.js';
+import userRoutes from './routes/users.js';
 import 'dotenv/config';
 
 

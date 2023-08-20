@@ -90,7 +90,7 @@ const Navbar = () => {
                             alt={user.result.name} 
                             src={user.result.picture} 
                         >
-                            {user.result.name}
+                            {user.result.name.charAt(0)}
                         </Avatar>
                         <Typography 
                             sx={{

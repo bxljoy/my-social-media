@@ -16,4 +16,5 @@ export const refreshToken = (refreshToken) => API.post('/auth/refresh-token', re
 export const getUserInfo = (accessToken) => API.post('/auth/get-userinfo', accessToken);
 
 // user apis
-export const signin = () => API.post(`/user/signin`);
+export const signIn = (formData) => API.post('/user/signin', formData);
+export const signUp = (formData) => API.post('/user/signup', formData);
