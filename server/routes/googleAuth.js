@@ -3,7 +3,7 @@ import { verifyIdToken, getTokens, refreshToken, getUserInfo } from '../controll
 
 const router = express.Router();
 
-router.post('/', verifyIdToken);
+router.post('/verify-idToken', verifyIdToken);
 router.post('/get-token', getTokens);
 router.post('/refresh-token', refreshToken);
 router.post('/get-userinfo', getUserInfo);

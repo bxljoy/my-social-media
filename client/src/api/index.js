@@ -1,16 +1,19 @@
 import axios from 'axios';
 
-const url = 'http://localhost:4000/posts';
+const API = axios.create({ baseURL: 'http://localhost:4000' });
 
-export const fetchPosts = () => axios.get(url);
-export const createPost = (newPost) => axios.post(url, newPost);
-export const updatePost = (updatedPost, id) => axios.patch(`${url}/${id}`, updatedPost);
-export const deletePost = (id) => axios.delete(`${url}/${id}`);
-export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
+// posts apis
+export const fetchPosts = () => API.get('/posts');
+export const createPost = (newPost) => API.post('/posts', newPost);
+export const updatePost = (updatedPost, id) => API.patch(`/posts/${id}`, updatedPost);
+export const deletePost = (id) => API.delete(`/posts/${id}`);
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 
-const urlAuth = 'http://localhost:4000/auth';
+// googleAuth apis
+export const verifyJwtToken = (jwtToken) => API.post('/auth/verify-idToken', jwtToken);
+export const getTokens = (accessToken) => API.post('/auth/get-token', accessToken);
+export const refreshToken = (refreshToken) => API.post('/auth/refresh-token', refreshToken);
+export const getUserInfo = (accessToken) => API.post('/auth/get-userinfo', accessToken);
 
-export const verifyJwtToken = (jwtToken) => axios.post(urlAuth, jwtToken);
-export const getTokens = (accessToken) => axios.post(`${urlAuth}/get-token`, accessToken);
-export const refreshToken = (refreshToken) => axios.post(`${urlAuth}/refresh-token`, refreshToken);
-export const getUserInfo = (accessToken) => axios.post(`${urlAuth}/get-userinfo`, accessToken);
+// user apis
+export const signin = () => API.post(`/user/signin`);
