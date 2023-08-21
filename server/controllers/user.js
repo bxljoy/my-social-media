@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
+const secret = 'testKey';
+
 export const signin = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -16,7 +18,7 @@ export const signin = async (req, res) => {
         if(!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credential." });
         
-        const token = jwt.sign({ email: exsitingUser.email, id: exsitingUser.id }, 'testKey', { expiresIn: "1h"});
+        const token = jwt.sign({ email: exsitingUser.email, id: exsitingUser._id }, secret, { expiresIn: "1h"});
         
         res.status(200).json({ result: exsitingUser, token});
     } catch (error) {
@@ -39,7 +41,7 @@ export const signup = async (req, res) => {
 
         const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
-        const token = jwt.sign({ email: result.email, id: result._id }, 'testKey', { expiresIn: "1h"});
+        const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: "1h"});
 
         res.status(200).json({ result, token});
     } catch (error) {

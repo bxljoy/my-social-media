@@ -72,7 +72,7 @@ const Post = ({ post, setCurrentId }) => {
                     color: 'white',
                 }}
             >
-                <Typography variant="h6">{post.creator}</Typography>
+                <Typography variant="h6">{post.name}</Typography>
                 <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
             </Box>
             <Box 
