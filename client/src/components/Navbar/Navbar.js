@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { deepPurple } from '@mui/material/colors';
 import catlover from '../../images/cat-lover.png';
 import { useDispatch } from "react-redux";
+import decode from 'jwt-decode';
 
 const Navbar = () => {
 
@@ -14,7 +15,12 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-        // const token = user?.token;
+        const token = user?.token;
+
+        if (token) {
+            const decodedToken = decode(token);
+            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+        }
         
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location]);
