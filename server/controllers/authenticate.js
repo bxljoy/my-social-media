@@ -33,7 +33,7 @@ async function verify(idToken) {
 export const getTokens = async (req, res) => {
     try {
         const { tokens } = await oAuth2Client.getToken(req.body.code); // exchange code for tokens
-        console.log(tokens);
+        // console.log(tokens);
         res.status(200).json(tokens);
     } catch (error) {
         console.log(error);
@@ -46,7 +46,7 @@ export const getUserInfo = async (req, res) => {
         // console.log(tokens);
         const payload = await verify(tokens.id_token);
         payload['id_token'] = tokens.id_token;
-        console.log(payload);
+        // console.log(payload);
         res.status(200).json(payload);
     } catch (error) {
         console.log(error);

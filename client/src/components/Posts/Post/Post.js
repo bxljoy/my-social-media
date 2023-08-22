@@ -90,22 +90,24 @@ const Post = ({ post, setCurrentId }) => {
                 <Typography variant="h6">{post.name}</Typography>
                 <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
             </Box>
-            <Box 
-                sx={{
-                    position: 'absolute',
-                    top: '20px',
-                    right: '20px',
-                    color: 'white',
-                }}
-            >
-                <Button 
-                    style={{color: 'white'}} 
-                    size="small" 
-                    disabled={!user?.result}
-                    onClick={() => setCurrentId(post._id)}>
-                    <MoreHorizIcon fontSize="medium" />
-                </Button>
-            </Box>
+            { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
+                <Box 
+                    sx={{
+                        position: 'absolute',
+                        top: '20px',
+                        right: '20px',
+                        color: 'white',
+                    }}
+                >
+                    <Button 
+                        style={{color: 'white'}} 
+                        size="small" 
+                        disabled={!user?.result || user?.result.name !== post.name}
+                        onClick={() => setCurrentId(post._id)}>
+                        <MoreHorizIcon fontSize="medium" />
+                    </Button>
+                </Box>
+            )}
             <Box 
                 sx={{
                     display: 'flex',
@@ -129,10 +131,12 @@ const Post = ({ post, setCurrentId }) => {
                 <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
                     <Likes />
                 </Button>
-                <Button size="small" color="primary" disabled={!user?.result} onClick={handleClickOpen}>
-                    <DeleteIcon fontSize="small"/>
-                    Delete
-                </Button>
+                { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
+                    <Button size="small" color="primary" onClick={handleClickOpen}>
+                         <DeleteIcon fontSize="small"/>
+                         Delete
+                     </Button>
+                )}
                 <Dialog
                     open={open}
                     onClose={handleClose}
