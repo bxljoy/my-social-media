@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpAltOutlined from '@mui/icons-material/ThumbDownAltOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import moment from 'moment';
@@ -22,6 +23,20 @@ import { CardActionArea } from '@mui/material';
 const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
+    const user = JSON.parse(localStorage.getItem('profile'));
+
+    const Likes = () => {
+        if (post.likes.length > 0) {
+          return post.likes.find((like) => like === (user?.result?.sub || user?.result?._id))
+            ? (
+              <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
+            ) : (
+              <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
+            );
+        }
+    
+        return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -86,6 +101,7 @@ const Post = ({ post, setCurrentId }) => {
                 <Button 
                     style={{color: 'white'}} 
                     size="small" 
+                    disabled={!user?.result}
                     onClick={() => setCurrentId(post._id)}>
                     <MoreHorizIcon fontSize="medium" />
                 </Button>
@@ -110,12 +126,10 @@ const Post = ({ post, setCurrentId }) => {
                     justifyContent: 'space-between',
                 }}
             >
-                <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}>
-                    <ThumbUpAltIcon fontSize="small"/>
-                    &nbsp; Like &nbsp;
-                    {post.likeCount}
+                <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+                    <Likes />
                 </Button>
-                <Button size="small" color="primary" onClick={handleClickOpen}>
+                <Button size="small" color="primary" disabled={!user?.result} onClick={handleClickOpen}>
                     <DeleteIcon fontSize="small"/>
                     Delete
                 </Button>
