@@ -14,6 +14,12 @@ const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/');
+        setUser(null);
+    }
+    
     useEffect(() => {
         const token = user?.token;
 
@@ -23,13 +29,8 @@ const Navbar = () => {
         }
         
         setUser(JSON.parse(localStorage.getItem('profile')));
+    // eslint-disable-next-line
     }, [location]);
-
-    const logout = () => {
-        dispatch({ type: 'LOGOUT' });
-        navigate('/');
-        // setUser(null);
-    }
 
     return (
         <AppBar 

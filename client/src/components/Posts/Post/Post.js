@@ -19,9 +19,12 @@ import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import decode from 'jwt-decode';
 
 const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -39,6 +42,7 @@ const Post = ({ post, setCurrentId }) => {
     };
 
     const handleClickOpen = () => {
+        checkTokenExpiration();
         setOpen(true);
     };
 
@@ -48,12 +52,30 @@ const Post = ({ post, setCurrentId }) => {
 
     const handleDelete = () => dispatch(deletePost(post._id));
 
+    const handleLike = () => {
+        checkTokenExpiration();
+        dispatch(likePost(post._id));
+    }
+
+    const handleEdit = () => {
+        checkTokenExpiration();
+        setCurrentId(post._id);
+    }
+
     const handleMouseEnter = () => {
 
     }
 
     const handleMouseLeave = () => {
         
+    }
+
+    const checkTokenExpiration = () => {
+        const token = user?.token;
+        if (token) {
+            const decodedToken = decode(token);
+            if (decodedToken.exp * 1000 < new Date().getTime()) navigate('/auth');
+        }
     }
 
     return (
@@ -103,7 +125,7 @@ const Post = ({ post, setCurrentId }) => {
                         style={{color: 'white'}} 
                         size="small" 
                         disabled={!user?.result || user?.result.name !== post.name}
-                        onClick={() => setCurrentId(post._id)}>
+                        onClick={handleEdit}>
                         <MoreHorizIcon fontSize="medium" />
                     </Button>
                 </Box>
@@ -128,14 +150,14 @@ const Post = ({ post, setCurrentId }) => {
                     justifyContent: 'space-between',
                 }}
             >
-                <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+                <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
                     <Likes />
                 </Button>
                 { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
                     <Button size="small" color="primary" onClick={handleClickOpen}>
                          <DeleteIcon fontSize="small"/>
                          Delete
-                     </Button>
+                    </Button>
                 )}
                 <Dialog
                     open={open}
@@ -154,9 +176,7 @@ const Post = ({ post, setCurrentId }) => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>No</Button>
-                        <Button onClick={handleDelete} autoFocus>
-                        Yes
-                    </Button>
+                        <Button onClick={handleDelete} autoFocus>Yes</Button>
                     </DialogActions>
                 </Dialog>
             </CardActions>
