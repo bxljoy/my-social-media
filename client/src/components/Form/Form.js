@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 
 const Form = ({currentId, setCurrentId}) => {
     const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
-    const post = useSelector((state) => currentId ? state.postsReducer.find(p => p._id === currentId) : null);
+    const post = useSelector((state) => currentId ? state.postsReducer.posts.find(p => p._id === currentId) : null);
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
 

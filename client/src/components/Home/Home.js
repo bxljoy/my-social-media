@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
 
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Pagination from '../Pagination';
@@ -19,10 +19,6 @@ const Home = () => {
     const searchQuery = query.get('searchQuery');
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]);
-
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [currentId, dispatch]);
 
     const searchPost = () => {
         if (search.trim() || tags) {
@@ -102,6 +98,7 @@ const Home = () => {
                                     marginTop: '1rem',
                                     padding: '16px',
                                 }}
+                                page={page}
                             />
                         </Paper>
                     </Grid>
