@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Chip from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 
-import { getPosts } from '../../actions/posts';
+import { getPosts, getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Pagination from '../Pagination';
@@ -18,10 +18,26 @@ const Home = () => {
     const page = parseInt(query.get('page') || '1', 10);
     const searchQuery = query.get('searchQuery');
     const [search, setSearch] = useState('');
+    const [tags, setTags] = useState([]);
 
     useEffect(() => {
         dispatch(getPosts());
     }, [currentId, dispatch]);
+
+    const searchPost = () => {
+        if (search.trim() || tags) {
+            dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+            navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+          } else {
+            navigate('/');
+          }
+    }
+
+    const handleKeyPress = (e) => {
+        if (e.keyCode === 13) {
+          searchPost();
+        }
+    };
 
     return (
         <Grow in>
@@ -41,15 +57,15 @@ const Home = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={3} >
                         <AppBar 
-                        className='appBarSearch' 
-                        position='static' 
-                        color='inherit'
-                        sx={{
-                            borderRadius: 4,
-                            marginBottom: '1rem',
-                            display: 'flex',
-                            padding: '16px',
-                        }}
+                            className='appBarSearch' 
+                            position='static' 
+                            color='inherit'
+                            sx={{
+                                borderRadius: 4,
+                                marginBottom: '1rem',
+                                display: 'flex',
+                                padding: '16px',
+                            }}
                         >
                             <TextField 
                                 name='search' 
@@ -58,7 +74,25 @@ const Home = () => {
                                 fullWidth
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
+                                onKeyDown={handleKeyPress}
                             />
+                            <Autocomplete
+                                multiple
+                                id="tags-filled"
+                                options={[]}
+                                defaultValue={[]}
+                                freeSolo
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        variant="filled"
+                                        label="Search Tags"
+                                        placeholder="Tags"
+                                    />
+                                )}
+                                onChange={(e, newValue) => setTags(newValue)}
+                            />
+                            <Button onClick={searchPost} className="searchButton" variant="contained" color="primary">Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
                         <Paper elevation={6}>

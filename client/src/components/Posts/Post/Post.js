@@ -88,6 +88,8 @@ const Post = ({ post, setCurrentId }) => {
                 height: '100%',
                 position: 'relative',
             }}
+            raised
+            elevation={6}
         >
             <CardActionArea onMouseEnter={handleMouseEnter} onMouseOut={handleMouseLeave}>
                 <CardMedia 
@@ -98,7 +100,9 @@ const Post = ({ post, setCurrentId }) => {
                         backgroundBlendMode: 'darken',
                     }}
                     image={post.selectedFile} 
+                    src={post.selectedFile} 
                     title={post.title}
+                    alt={post.title}
                 /> 
             </CardActionArea>
             <Box 

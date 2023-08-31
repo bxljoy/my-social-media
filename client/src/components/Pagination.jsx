@@ -19,7 +19,7 @@ const Paginate = () => {
                     to={`/posts?page=${item.page}`}
                 />
             )}
-         />
+        />
     );
 }
 
