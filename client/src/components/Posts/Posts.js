@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@mui/material";
 
 const Posts = ({setCurrentId}) => {
-    const posts = useSelector((state) => state.postsReducer);
+    const { posts, isLoading } = useSelector((state) => state.postsReducer);
 
+    if (!posts?.length && !isLoading) return 'No posts';
     return (
-        !posts.length ? <CircularProgress /> : (
+        isLoading ? <CircularProgress /> : (
             <Grid container alignItems="stretch" spacing={3}>
                 {
                     posts.map(post => (
