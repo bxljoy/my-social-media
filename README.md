@@ -12,3 +12,6 @@
 - open a new pull request
 - merge the branch to the main branch
 
+## bugs need to be fixed
+- When the items of current page got the limit, adding a new moment will cause the items showing on the page up to the limit+1.
+- The like button / delete button is too slow to show the changes, I think it is better to have some loading componets. 
