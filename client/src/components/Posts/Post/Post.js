@@ -97,7 +97,8 @@ const Post = ({ post, setCurrentId }) => {
                         height: 0,
                         paddingTop: '56.25%',
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        backgroundBlendMode: 'darken',
+                        backgroundBlendMode: 'hard-light',
+                        // backgroundBlendMode: 'darken',
                     }}
                     image={post.selectedFile} 
                     src={post.selectedFile} 
