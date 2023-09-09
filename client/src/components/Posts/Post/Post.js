@@ -70,6 +70,10 @@ const Post = ({ post, setCurrentId }) => {
         
     }
 
+    const handleImageClick = () => {
+        navigate(`/posts/${post._id}`);
+    }
+
     const checkTokenExpiration = () => {
         const token = user?.token;
         if (token) {
@@ -91,13 +95,14 @@ const Post = ({ post, setCurrentId }) => {
             raised
             elevation={6}
         >
-            <CardActionArea onMouseEnter={handleMouseEnter} onMouseOut={handleMouseLeave}>
+            <CardActionArea onMouseEnter={handleMouseEnter} onMouseOut={handleMouseLeave} onClick={handleImageClick}>
                 <CardMedia 
                     sx={{
                         height: 0,
                         paddingTop: '56.25%',
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        backgroundBlendMode: 'darken',
+                        backgroundBlendMode: 'hard-light',
+                        // backgroundBlendMode: 'darken',
                     }}
                     image={post.selectedFile} 
                     src={post.selectedFile} 

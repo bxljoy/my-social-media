@@ -91,16 +91,18 @@ const Home = () => {
                             <Button onClick={searchPost} className="searchButton" variant="contained" color="primary">Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        <Paper elevation={6}>
-                            <Pagination
-                                sx={{
-                                    borderRadius: 4,
-                                    marginTop: '1rem',
-                                    padding: '16px',
-                                }}
-                                page={page}
-                            />
-                        </Paper>
+                        {( !searchQuery && !tags.length) && (
+                            <Paper elevation={6} className='pagination'>
+                                <Pagination
+                                    sx={{
+                                        borderRadius: 4,
+                                        marginTop: '1rem',
+                                        padding: '16px',
+                                    }}
+                                    page={page}
+                                />
+                            </Paper>
+                        )}
                     </Grid>
                 </Grid>
             </Container>
