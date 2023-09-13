@@ -32,7 +32,7 @@ const PostDetails = () => {
             }} 
             elevation={6}
         >
-            <CircularProgress size='7em' />
+            <CircularProgress color='secondary' size='7em' />
         </Paper>
     )};
 
