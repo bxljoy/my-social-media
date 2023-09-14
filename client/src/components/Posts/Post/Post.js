@@ -51,7 +51,12 @@ const Post = ({ post, setCurrentId }) => {
         setOpen(false);
     };
 
-    const handleDelete = () => dispatch(deletePost(post._id));
+    const handleDelete = async () => { 
+        handleBackDropOpen();
+        setOpen(false);
+        await dispatch(deletePost(post._id));
+        handleBackDropClose();
+    };
 
     const handleLike = async () => {
         checkTokenExpiration();
