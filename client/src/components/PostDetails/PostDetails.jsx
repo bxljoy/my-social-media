@@ -3,7 +3,7 @@ import { Paper, Typography, CircularProgress, Divider, Box, Link } from '@mui/ma
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPost } from '../../actions/posts';
+import { getPost, getPostsBySearch } from '../../actions/posts';
 
 
 const PostDetails = () => {
@@ -16,6 +16,13 @@ const PostDetails = () => {
         dispatch(getPost(id));
          // eslint-disable-next-line 
     }, [id]);
+
+    useEffect(() => {
+        if(post) {
+            dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
+        }
+        // eslint-disable-next-line
+    }, [post]);
 
     if(!post) return null;
 
@@ -37,7 +44,7 @@ const PostDetails = () => {
     )};
 
     const openPost = (_id) => navigate(`/posts/${_id}`);
-    // const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+    const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
     return (
         <Paper sx={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -98,7 +105,7 @@ const PostDetails = () => {
                     />
                 </Box>
             </Box>
-            {/* {!!recommendedPosts.length && (
+            {recommendedPosts.length && (
             <Box
                 sx={{
                     borderRadius: '20px',
@@ -111,7 +118,7 @@ const PostDetails = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        flexDirection: { sm: 'column' },
+                        flexDirection: { xl: 'row', lg: 'row', md: 'row', sm: 'column', xs: 'column' },
                     }}
                 >
                     {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
@@ -125,7 +132,7 @@ const PostDetails = () => {
                     ))}
                 </Box>
             </Box>
-            )} */}
+            )}
         </Paper>
     )   
 }
