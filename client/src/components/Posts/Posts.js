@@ -8,7 +8,7 @@ const Posts = ({setCurrentId}) => {
 
     if (!posts?.length && !isLoading) return 'No posts';
     return (
-        isLoading ? <CircularProgress /> : (
+        isLoading ? <CircularProgress size="7em" /> : (
             <Grid container alignItems="stretch" spacing={3}>
                 {
                     posts.map(post => (

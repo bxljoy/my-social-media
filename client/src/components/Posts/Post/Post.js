@@ -18,7 +18,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, Backdrop, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import decode from 'jwt-decode';
 
@@ -26,6 +26,7 @@ const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [backDrop, setBackDrop] = React.useState(false);
     const user = JSON.parse(localStorage.getItem('profile'));
 
     const Likes = () => {
@@ -50,11 +51,18 @@ const Post = ({ post, setCurrentId }) => {
         setOpen(false);
     };
 
-    const handleDelete = () => dispatch(deletePost(post._id));
+    const handleDelete = async () => { 
+        handleBackDropOpen();
+        setOpen(false);
+        await dispatch(deletePost(post._id));
+        handleBackDropClose();
+    };
 
-    const handleLike = () => {
+    const handleLike = async () => {
         checkTokenExpiration();
-        dispatch(likePost(post._id));
+        handleBackDropOpen();
+        await dispatch(likePost(post._id));
+        handleBackDropClose();
     }
 
     const handleEdit = () => {
@@ -81,6 +89,14 @@ const Post = ({ post, setCurrentId }) => {
             if (decodedToken.exp * 1000 < new Date().getTime()) navigate('/auth');
         }
     }
+
+    const handleBackDropClose = () => {
+        setBackDrop(false);
+    };
+
+    const handleBackDropOpen = () => {
+        setBackDrop(true);
+    };
 
     return (
         <Card
@@ -189,6 +205,13 @@ const Post = ({ post, setCurrentId }) => {
                     </DialogActions>
                 </Dialog>
             </CardActions>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={backDrop}
+                // onClick={handleBackDropClose}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </Card>
     );
 }
