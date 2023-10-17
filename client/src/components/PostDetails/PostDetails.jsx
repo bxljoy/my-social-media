@@ -76,6 +76,7 @@ const PostDetails = () => {
                     <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
                     <Divider style={{ margin: '20px 0' }} />
                     {/* <CommentSection post={post} /> */}
+                    <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
                     <Divider style={{ margin: '20px 0' }} />
                 </Box>
                 <Box
