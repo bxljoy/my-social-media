@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     branches:
-      - feature
+      - main
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest

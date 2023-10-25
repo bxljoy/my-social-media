@@ -1,0 +1,46 @@
+name: Pull and Deploy from Github to VPS
+
+on: 
+    push:
+        branches:
+            - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+    - name: Install npm dependencies
+      run: npm install
+    - name: Run build task
+      run: npm run build --if-present
+    - name: Deploy to Server
+      uses: kevin-leptons/ssh_action@v1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+            cd /home/my-social-media
+            git pull
+            cd client
+            npm install
+            pm2 restart all
+            
+    # - name: Deploy to Server
+    #   uses: easingthemes/ssh-deploy@main
+    #   with:
+    #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    #       ARGS: "-rlgoDzvc -i --delete"
+    #       SOURCE: "dist/"
+    #       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+    #       REMOTE_USER: ${{ secrets.REMOTE_USER }}
+    #       TARGET: ${{ secrets.REMOTE_TARGET }}
+    #       EXCLUDE: "/dist/, /node_modules/"
