@@ -1,5 +1,5 @@
 name: Pull and Deploy from Github to VPS
-
+run-name: ${{ github.actor }} - deploy to VPS
 on: 
     push:
         branches:
@@ -21,7 +21,9 @@ jobs:
         cd client
         npm install
     - name: Run build task
-      run: npm run build --if-present
+      run: |
+        cd client
+        npm run build --if-present
     - name: Deploy to Server
       uses: kevin-leptons/ssh_action@v1
       with:
