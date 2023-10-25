@@ -25,26 +25,29 @@ jobs:
         cd client
         npm run build --if-present
     - name: Deploy to Server
-      uses: kevin-leptons/ssh_action@v1
+      uses: GPTED/SSH-My-Action@0.1
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        script: |
-            cd /home/my-social-media
-            git pull
-            cd client
-            npm install
-            pm2 restart all
-            
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        PORT: 22
+        CMD: |
+            cd /home/my-social-media;
+            git pull;
+            cd client;
+            npm install;
+            pm2 restart all;
+
     # - name: Deploy to Server
-    #   uses: easingthemes/ssh-deploy@main
+    #   uses: kevin-leptons/ssh_action@v1
     #   with:
-    #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    #       ARGS: "-rlgoDzvc -i --delete"
-    #       SOURCE: "dist/"
-    #       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-    #       REMOTE_USER: ${{ secrets.REMOTE_USER }}
-    #       TARGET: ${{ secrets.REMOTE_TARGET }}
-    #       EXCLUDE: "/dist/, /node_modules/"
+    #     host: ${{ secrets.HOST }}
+    #     username: ${{ secrets.USERNAME }}
+    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     port: 22
+    #     script: |
+    #         cd /home/my-social-media
+    #         git pull
+    #         cd client
+    #         npm install
+    #         pm2 restart all
