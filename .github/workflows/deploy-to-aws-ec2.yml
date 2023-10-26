@@ -1,0 +1,41 @@
+name: Deploy to AWS EC2
+run-name: ${{ github.actor }} - deploy to AWS EC2
+on: 
+    push:
+        branches:
+            - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+    - name: Install npm dependencies
+      run: |
+        cd client
+        npm install
+    - name: Run build task
+      run: |
+        cd client
+        npm run build --if-present
+    - name: Executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST_DNS }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+            cd /home/my-social-media
+            git pull
+            cd client
+            npm install
+            cd ..
+            cd server
+            npm install
+            pm2 restart all
