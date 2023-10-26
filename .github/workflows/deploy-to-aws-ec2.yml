@@ -31,7 +31,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-            cd /home/my-social-media
+            cd /home/ubuntu/my-social-media
             git pull
             cd client
             npm install
