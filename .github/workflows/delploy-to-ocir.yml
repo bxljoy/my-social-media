@@ -1,0 +1,38 @@
+name: Deploy Github Repository to OCIR
+run-name: ${{ github.actor }} - deploy to OCIR
+on: 
+    push:
+        branches:
+            - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+    - name: Install npm dependencies
+      run: |
+        cd client
+        npm install
+    - name: Deploy to OCIR
+      uses: GPTED/SSH-My-Action@0.1
+      with:
+        HOST: ${{ secrets.OCIR_HOST }}
+        USERNAME: ${{ secrets.OCIR_USERNAME }}
+        PRIVATE_KEY: ${{ secrets.OCIR_SSH_PRIVATE_KEY }}
+        PORT: 22
+        CMD: |
+            cd /home/ubuntu/my-social-media;
+            git pull;
+            cd client;
+            npm install;
+            cd ..;
+            cd server;
+            npm install;
+            pm2 restart all;

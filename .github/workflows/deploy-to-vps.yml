@@ -37,17 +37,3 @@ jobs:
             cd client;
             npm install;
             pm2 restart all;
-
-    # - name: Deploy to Server
-    #   uses: kevin-leptons/ssh_action@v1
-    #   with:
-    #     host: ${{ secrets.HOST }}
-    #     username: ${{ secrets.USERNAME }}
-    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-    #     port: 22
-    #     script: |
-    #         cd /home/my-social-media
-    #         git pull
-    #         cd client
-    #         npm install
-    #         pm2 restart all
