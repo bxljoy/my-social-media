@@ -28,7 +28,7 @@ jobs:
       uses: GPTED/SSH-My-Action@0.1
       with:
         HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
+        USER: ${{ secrets.USERNAME }}
         PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         PORT: 22
         CMD: |

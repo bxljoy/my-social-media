@@ -24,7 +24,7 @@ jobs:
       uses: GPTED/SSH-My-Action@0.1
       with:
         HOST: ${{ secrets.OCIR_HOST }}
-        USERNAME: ${{ secrets.OCIR_USERNAME }}
+        USER: ${{ secrets.OCIR_USERNAME }}
         PRIVATE_KEY: ${{ secrets.OCIR_SSH_PRIVATE_KEY }}
         PORT: 22
         CMD: |

@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on: 
   push:
     branches:
-      - main
+      - feature
   pull_request:
     branches:
       - main
@@ -15,10 +15,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: |
-          cd my-social-media/client
-          npm install
-          cd ..
-          cd server
-          npm install
-
+      - run: npm install -g bats
+      - run: bats -v
