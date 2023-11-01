@@ -4,7 +4,7 @@ import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 import Box from '@mui/material/Box';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import InputAdornment from '@mui/material/InputAdornment';
 // import AccountCircle from '@mui/icons-material/AccountCircle';
 
@@ -13,7 +13,7 @@ const Form = ({currentId, setCurrentId}) => {
     const post = useSelector((state) => currentId ? state.postsReducer.posts.find(p => p._id === currentId) : null);
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
-    const navigate = Navigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (post) {
