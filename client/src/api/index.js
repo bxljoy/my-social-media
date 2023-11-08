@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'http://localhost:4000' });
-const API = axios.create({ baseURL: 'https://my-social-media-api.onrender.com' });
+const API = axios.create({ baseURL: 'http://localhost:4000' });
+// const API = axios.create({ baseURL: 'https://my-social-media-api.onrender.com' });
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {
@@ -19,6 +19,7 @@ export const createPost = (newPost) => API.post('/posts', newPost);
 export const updatePost = (updatedPost, id) => API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
+export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
 
 // googleAuth apis
 export const verifyJwtToken = (jwtToken) => API.post('/auth/verify-idToken', jwtToken);
