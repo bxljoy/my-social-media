@@ -3,9 +3,8 @@ run-name: ${{ github.actor }} - deploy to OCIR
 on: 
     push:
         branches:
-            # - main
-            - feature
-
+            - main
+            
 jobs:
   build:
 
