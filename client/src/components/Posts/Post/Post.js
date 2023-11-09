@@ -179,7 +179,7 @@ const Post = ({ post, setCurrentId }) => {
                     <Likes />
                 </Button>
                 { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
-                    <Button size="small" color="primary" onClick={handleClickOpen}>
+                    <Button size="small" color="warning" onClick={handleClickOpen}>
                          <DeleteIcon fontSize="small"/>
                          Delete
                     </Button>

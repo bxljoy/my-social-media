@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Typography, TextField, Button, Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { commentPost } from '../../actions/posts';
@@ -11,13 +11,18 @@ const CommentSection = ({ post }) => {
   const [comments, setComments] = useState(post?.comments);
   const commentsRef = useRef();
 
+  useEffect(() => {
+    if (commentsRef.current) {
+      commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [comments]);
+
   const handleComment = async () => {
     const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
 
-    setComment('');
     setComments(newComments);
+    setComment('');
 
-    commentsRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -37,13 +42,15 @@ const CommentSection = ({ post }) => {
         >
           <Typography gutterBottom variant="h6">Comments</Typography>
           {comments?.map((c, i) => (
+    
             <Typography key={i} gutterBottom variant="subtitle1">
-              <strong>{c.split(': ')[0]}</strong>
+              <strong>{c.split(': ')[0]}:</strong>
               {c.split(':')[1]}
             </Typography>
           ))}
           <Box ref={commentsRef} />
         </Box>
+        { user?.result?.name && (
         <Box 
             sx={{ 
                 width: '70%'
@@ -55,7 +62,7 @@ const CommentSection = ({ post }) => {
           <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment.length} color="secondary" variant="contained" onClick={handleComment}>
             Comment
           </Button>
-        </Box>
+        </Box>)}
       </Box>
     </Box>
   );
