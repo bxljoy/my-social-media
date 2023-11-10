@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Typography, TextField, Button, Box } from '@mui/material';
+import { Typography, TextField, Button, Box, Backdrop, CircularProgress } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { commentPost } from '../../actions/posts';
 
@@ -9,6 +9,7 @@ const CommentSection = ({ post }) => {
   const [comment, setComment] = useState('');
   const dispatch = useDispatch();
   const [comments, setComments] = useState(post?.comments);
+  const [backDrop, setBackDrop] = React.useState(false);
   const commentsRef = useRef();
 
   useEffect(() => {
@@ -17,12 +18,22 @@ const CommentSection = ({ post }) => {
     }
   }, [comments]);
 
+  const handleBackDropClose = () => {
+    setBackDrop(false);
+  };
+
+  const handleBackDropOpen = () => {
+      setBackDrop(true);
+  };
+
   const handleComment = async () => {
+    handleBackDropOpen();
     const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
 
     setComments(newComments);
     setComment('');
-
+    
+    handleBackDropClose();
   };
 
   return (
@@ -64,6 +75,13 @@ const CommentSection = ({ post }) => {
           </Button>
         </Box>)}
       </Box>
+      <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={backDrop}
+          // onClick={handleBackDropClose}
+      >
+          <CircularProgress color="inherit" />
+      </Backdrop>
     </Box>
   );
 };
