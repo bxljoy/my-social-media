@@ -15,3 +15,4 @@
 ## bugs need to be fixed
 - The like button / delete button is too slow to show the changes, I think it is better to have some loading componets. 
 - The Mobile devices have some responsive issues.
+- Adding the response to the wrong username and password
