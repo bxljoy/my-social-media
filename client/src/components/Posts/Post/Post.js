@@ -111,7 +111,11 @@ const Post = ({ post, setCurrentId }) => {
             raised
             elevation={6}
         >
-            <CardActionArea onMouseEnter={handleMouseEnter} onMouseOut={handleMouseLeave} onClick={handleImageClick}>
+            <CardActionArea 
+                onMouseEnter={handleMouseEnter} 
+                onMouseOut={handleMouseLeave} 
+                onClick={handleImageClick}
+            >
                 <CardMedia 
                     sx={{
                         height: 0,

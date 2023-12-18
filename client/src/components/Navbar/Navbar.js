@@ -40,7 +40,7 @@ const Navbar = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '10px 50px',
-                flexDirection: {sm: 'column', md: 'row', lg: 'row'},
+                flexDirection: {xs:'column', sm: 'row', md: 'row', lg: 'row'},
             }}
             position="static" 
             color="inherit"
@@ -49,6 +49,7 @@ const Navbar = () => {
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
+                    flexDirection: {xs:'column', sm: 'row', md: 'row', lg: 'row'},
                 }}
             >
                 <Typography 
@@ -76,7 +77,7 @@ const Navbar = () => {
             <Toolbar 
                 sx={{
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: {xs: 'center', sm: 'flex-end', md: 'flex-end', lg: 'flex-end'},
                     width: '400px',
                 }}
             >

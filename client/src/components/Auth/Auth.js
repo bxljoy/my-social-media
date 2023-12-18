@@ -45,12 +45,12 @@ const Auth = () => {
     };
 
     const googleSuccess = async (res) => {
-        console.log(res);
+        // console.log(res);
         try {
             const { data: result } = await api.verifyJwtToken(res);
-            console.log(result);
+            // console.log(result);
             const token = res.credential;
-            console.log(`token: ${token}`);
+            // console.log(`token: ${token}`);
             dispatch({type: 'AUTH', data: { result, token }});
             navigate('/');
         } catch (error) {
@@ -95,14 +95,14 @@ const Auth = () => {
     const loginAndGetUserInfo = useGoogleLogin({
         flow: 'auth-code',     // 'auto-code' flow can get tokenResponse.code, the default flow 'implicit' can get tokenResponse.access_token
         onSuccess: async (tokenResponse) => {
-            console.log(tokenResponse);
+            // console.log(tokenResponse);
             try {
                 const { data: result } = await api.getUserInfo({
                     code: tokenResponse.code,
                 });
-                console.log(result);
+                // console.log(result);
                 const token = result.id_token;
-                console.log(`token: ${token}`);
+                // console.log(`token: ${token}`);
                 dispatch({type: 'AUTH', data: { result, token }});
                 navigate('/');
             } catch (error) {
