@@ -39,7 +39,7 @@ const Navbar = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '10px 50px',
+                padding: '0',
                 flexDirection: {xs:'column', sm: 'row', md: 'row', lg: 'row'},
             }}
             position="static" 
@@ -49,7 +49,7 @@ const Navbar = () => {
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    flexDirection: {xs:'column', sm: 'row', md: 'row', lg: 'row'},
+                    flexDirection: {xs:'row', sm: 'row', md: 'row', lg: 'row'},
                 }}
             >
                 <Typography 
@@ -58,8 +58,9 @@ const Navbar = () => {
                     sx={{
                         color: 'rgba(0,183,255, 1)',
                         textDecoration: 'none',
+                        fontSize: '2rem',
                     }}
-                    variant='h2' 
+                    // variant='h2' 
                     align='center'
                 >
                     Moments
@@ -85,8 +86,11 @@ const Navbar = () => {
                     <Box 
                         sx={{
                             display: 'flex',
-                            justifyContent: 'space-between',
+                            flexDirection: {xs: 'column', sm: 'row', md: 'row', lg: 'row'},
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
                             width: '400px',
+                            gap: '10px',
                         }}
                     >
                         <Avatar 
