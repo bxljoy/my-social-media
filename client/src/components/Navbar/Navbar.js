@@ -68,11 +68,11 @@ const Navbar = () => {
                 <Box 
                     component="img" 
                     sx={{
-                        marginLeft: '15px',
+                        marginLeft: '5px',
                     }}
                     src={catlover} 
                     alt='catlover' 
-                    height='60px'>
+                    height='2rem'>
                 </Box>
             </Box>
             <Toolbar 
