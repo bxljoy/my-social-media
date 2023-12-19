@@ -57,7 +57,7 @@ const Home = () => {
                             position='static' 
                             color='inherit'
                             sx={{
-                                borderRadius: 4,
+                                borderRadius: '15px',
                                 marginBottom: '1rem',
                                 display: 'flex',
                                 padding: '16px',

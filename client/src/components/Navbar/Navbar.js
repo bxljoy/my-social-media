@@ -34,12 +34,12 @@ const Navbar = () => {
     return (
         <AppBar 
             sx={{
-                borderRadius: 15,
+                borderRadius: '15px',
                 margin: '30px 0',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '0',
+                padding: '0 50px',
                 flexDirection: {xs:'column', sm: 'row', md: 'row', lg: 'row'},
             }}
             position="static" 
@@ -65,7 +65,7 @@ const Navbar = () => {
                 >
                     Moments
                 </Typography>
-                <Box 
+                {/* <Box 
                     component="img" 
                     sx={{
                         marginLeft: '5px',
@@ -73,7 +73,7 @@ const Navbar = () => {
                     src={catlover} 
                     alt='catlover' 
                     height='2rem'>
-                </Box>
+                </Box> */}
             </Box>
             <Toolbar 
                 sx={{

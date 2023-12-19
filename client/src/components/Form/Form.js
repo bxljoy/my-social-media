@@ -42,6 +42,7 @@ const Form = ({currentId, setCurrentId}) => {
             <Paper 
                 sx={{
                     padding: (theme) => theme.spacing(2),
+                    borderRadius: '15px',
                 }}
             >
                 <Typography variant="h6" align="center">
@@ -55,6 +56,7 @@ const Form = ({currentId, setCurrentId}) => {
         <Paper 
             sx={{
                 padding: (theme) => theme.spacing(2),
+                borderRadius: '15px',
             }}
             elevation={6}
         >
