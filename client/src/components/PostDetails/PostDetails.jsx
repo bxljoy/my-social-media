@@ -48,13 +48,13 @@ const PostDetails = () => {
     const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
     return (
-        <Paper sx={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+        <Paper sx={{ padding: '20px', borderRadius: '15px', }} elevation={6}>
             <Box
                 sx={{
                     display: 'flex',
                     width: '100%',
-                    flexWrap: { sm: 'wrap', md: 'nowrap', lg: 'nowrap', xl: 'nowrap' },
-                    flexDirection: { sm: 'column', md: 'row', lg: 'row', xl: 'row' },
+                    flexWrap: 'wrap',
+                    flexDirection: { xs: 'column-reverse', sm: 'column-reverse', md: 'row', lg: 'row', xl: 'row' },
                 }}
             >
                 <Box
@@ -80,8 +80,8 @@ const PostDetails = () => {
                     </Link>
                     </Typography>
                     <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
-                    <Divider style={{ margin: '20px 0' }} />
-                    <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
+                    {/* <Divider style={{ margin: '20px 0' }} /> */}
+                    {/* <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography> */}
                     <Divider style={{ margin: '20px 0' }} />
                     <CommentSection post={post} />
                     <Divider style={{ margin: '20px 0' }} />
@@ -110,6 +110,9 @@ const PostDetails = () => {
                 sx={{
                     borderRadius: '20px',
                     margin: '10px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexWrap: 'wrap',
                     flex: 1,
                 }}
             >
@@ -119,6 +122,8 @@ const PostDetails = () => {
                     sx={{
                         display: 'flex',
                         flexDirection: { xl: 'row', lg: 'row', md: 'row', sm: 'column', xs: 'column' },
+                        flexWrap: 'wrap',
+                        flex: 1,
                     }}
                 >
                     {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
