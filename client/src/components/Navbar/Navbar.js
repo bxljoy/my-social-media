@@ -3,7 +3,6 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import Box from '@mui/material/Box';
 import { deepPurple } from '@mui/material/colors';
-import catlover from '../../images/cat-lover.png';
 import { useDispatch } from "react-redux";
 import decode from 'jwt-decode';
 
@@ -65,15 +64,6 @@ const Navbar = () => {
                 >
                     Moments
                 </Typography>
-                {/* <Box 
-                    component="img" 
-                    sx={{
-                        marginLeft: '5px',
-                    }}
-                    src={catlover} 
-                    alt='catlover' 
-                    height='2rem'>
-                </Box> */}
             </Box>
             <Toolbar 
                 sx={{
