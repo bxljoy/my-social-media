@@ -4,6 +4,7 @@
 - Sign Up with your own email
 - Sign In using Google Account (Support One-tap login, auto-signin and multiple google accounts)
 - CRUD moments and Like others' moments
+- Commentting in the detail page
 
 ## GitHub Flow
 - Create a new branch
@@ -12,7 +13,6 @@
 - open a new pull request
 - merge the branch to the main branch
 
-## bugs need to be fixed
-- The like button / delete button is too slow to show the changes, I think it is better to have some loading componets. 
-- The Mobile devices have some responsive issues, especially the main page andst the detail page!!!
+## bugs need to be fixed 
 - Adding the response to the wrong username and password
+- Adding the light/dark mode toggle button in the main page
