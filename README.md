@@ -16,3 +16,4 @@
 ## bugs need to be fixed 
 - Adding the response to the wrong username and password
 - Adding the light/dark mode toggle button in the main page
+- Updating the layout of the detail page
