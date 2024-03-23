@@ -2,8 +2,8 @@ name: Pull and Deploy from Github to VPS
 run-name: ${{ github.actor }} - deploy to VPS
 on:
   push:
-    # branches:
-    # - main
+    branches:
+      - main
 
 jobs:
   build:
