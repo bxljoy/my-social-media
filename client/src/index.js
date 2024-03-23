@@ -10,12 +10,13 @@ import App from "./App";
 import "./index.css";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const clientId = process.env.REACT_APP_CLIENT_ID;
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <Provider store={store}>
-    <GoogleOAuthProvider clientId="394704547593-k87e89cfhr41qo672f5r7egqn2orpbjo.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={clientId}>
       <App />
     </GoogleOAuthProvider>
   </Provider>
