@@ -40,6 +40,7 @@ jobs:
             npm install;
             docker compose up -d;
 
+
             # docker build -t my-backend-api .;
             # docker stop my-api-container;
             # docker rm my-api-container;
