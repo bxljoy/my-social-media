@@ -38,9 +38,9 @@ jobs:
             pm2 restart all;
             cd ../server;
             npm install;
-            # docker compose up -d;
-
             docker build -t my-backend-api .;
             docker stop my-api-container;
             docker rm my-api-container;
             docker run --name my-api-container -d -p 4000:4000 my-backend-api;
+
+            # docker compose up -d;
