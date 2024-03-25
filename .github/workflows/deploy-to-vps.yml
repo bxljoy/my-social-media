@@ -44,4 +44,4 @@ jobs:
             # docker rm my-api-container;
             # docker run --name my-api-container -d -p 4000:4000 my-backend-api;
 
-            docker-compose up -d;
+            docker compose up -d;
