@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      MONGO_DB_URI: mongodb://mongo:27017/momentsDB
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
