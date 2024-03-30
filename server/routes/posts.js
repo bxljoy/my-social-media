@@ -14,9 +14,9 @@ import cookieSecure from "../middleware/cookieSecure.js";
 
 const router = express.Router();
 
-router.get("/search", getPostsBySearch);
+router.get("/search", cookieSecure, getPostsBySearch);
 router.get("/", cookieSecure, getPosts);
-router.get("/:id", getPost);
+router.get("/:id", cookieSecure, getPost);
 router.post("/", auth, createPost);
 router.patch("/:id", auth, updatePost);
 router.delete("/:id", auth, deletePost);
